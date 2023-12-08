@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
 import java.util.HashSet;
 import java.util.Optional;
@@ -44,9 +45,9 @@ public class ItPostBackEndApplication implements CommandLineRunner {
             Role adminRole = adminRoleOptional.orElseThrow(() -> new RuntimeException("Role not found"));
 
             user.setName("Ho Viet");
-            user.setPhone("0123456789");
+            user.setPhone("0987654321");
             user.setEmail("admin@hv.com");
-            user.setPass_word("123");
+            user.setPass_word(new BCryptPasswordEncoder().encode("123"));
             userRepository.save(user);
             user.getRoles().add(adminRole);
             userRepository.save(user);
