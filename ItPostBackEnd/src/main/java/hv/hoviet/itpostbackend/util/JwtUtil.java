@@ -28,9 +28,15 @@ public class JwtUtil {
         return extractClaim(token, Claims::getSubject);
     }
     public String generateToken(UserDetails userDetails){
-        return generateToken(new HashMap<>(), userDetails);
+        return Jwts
+                .builder()
+                .setSubject((userDetails.getUsername()))
+                .setIssuedAt(new Date(System.currentTimeMillis()))
+                .setExpiration(new Date(System.currentTimeMillis() + jwtExpirationMs))
+                .signWith(getSignInKey(), SignatureAlgorithm.HS256)
+                .compact();
     }
-    public String generateToken(
+    public String generateRefreshToken(
             Map<String, Objects> extractClaims,
             UserDetails userDetails
     ){
@@ -43,6 +49,7 @@ public class JwtUtil {
                 .signWith(getSignInKey(), SignatureAlgorithm.HS256)
                 .compact();
     }
+
 //    validate token
     public boolean isTokenValid (String token, UserDetails userDetails){
         final String username = extractUsername(token);
@@ -74,4 +81,6 @@ public class JwtUtil {
         byte[] keyBytes = Decoders.BASE64.decode(jwtSecret);
         return Keys.hmacShaKeyFor(keyBytes);
     }
+
+
 }

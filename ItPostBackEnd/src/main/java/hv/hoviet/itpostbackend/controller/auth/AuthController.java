@@ -1,5 +1,6 @@
 package hv.hoviet.itpostbackend.controller.auth;
 
+import hv.hoviet.itpostbackend.dto.SignInRequest;
 import hv.hoviet.itpostbackend.dto.SignUpRequest;
 import hv.hoviet.itpostbackend.service.AuthenticationService;
 import lombok.RequiredArgsConstructor;
@@ -20,6 +21,17 @@ public class AuthController {
         try {
             authenticationService.signUp(signUpRequest);
             return new ResponseEntity<>("Đăng ký thành công!", HttpStatus.OK);
+        } catch (Exception ex) {
+            ex.printStackTrace();
+            return new ResponseEntity<>("An error occurred: " + ex.getMessage(), HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+    }
+
+    @PostMapping("signin")
+    public ResponseEntity<?> signin(@RequestBody SignInRequest signInRequest) {
+        // 7:26
+        try {
+            return new ResponseEntity<>(authenticationService.signIn(signInRequest), HttpStatus.OK);
         } catch (Exception ex) {
             ex.printStackTrace();
             return new ResponseEntity<>("An error occurred: " + ex.getMessage(), HttpStatus.INTERNAL_SERVER_ERROR);
