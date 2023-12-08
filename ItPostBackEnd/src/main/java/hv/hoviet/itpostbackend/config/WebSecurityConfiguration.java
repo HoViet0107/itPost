@@ -36,17 +36,19 @@ public class WebSecurityConfiguration {
                         .requestMatchers(
                                 "/",
                                 "/home",
-                                "api/v1/auth/**"
+                                "api/v1/**"
                         ).permitAll()
                         .anyRequest().authenticated()
                 )
+
                 // cung cấp cấu hình dựa trên form đăng nhập
-                .formLogin((form) -> form
-                        /* khi người dùng truy cập vào trang web yêu cầu khác thực
-                        mà chưa xác thực thì sẽ được chuyển hướng đến trang này */
-                        .loginPage("/login")
-                        .permitAll()
-                )
+//                .formLogin((form) -> form
+//                        /* khi người dùng truy cập vào trang web yêu cầu khác thực
+//                        mà chưa xác thực thì sẽ được chuyển hướng đến trang này */
+//                        .loginPage("/login")
+//                        .permitAll()
+//                )
+
                 // Định cấu hình cho việc quản lý đồng thời các phiên đăng nhập
                 .sessionManagement((sessionManagement) ->
                         sessionManagement
