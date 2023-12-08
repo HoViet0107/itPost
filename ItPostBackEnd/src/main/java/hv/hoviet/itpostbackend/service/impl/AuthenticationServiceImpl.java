@@ -11,6 +11,8 @@ import hv.hoviet.itpostbackend.util.JwtUtil;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
@@ -46,21 +48,21 @@ public class AuthenticationServiceImpl implements AuthenticationService {
 
     @Override
     public JwtAuthenticationResponse signIn(SignInRequest signInRequest) {
-        authenticationManager.authenticate(
+        Authentication authenticate = authenticationManager.authenticate(
                 new UsernamePasswordAuthenticationToken(
-                        signInRequest.getEmail(),signInRequest.getPass_word()
+                        signInRequest.getEmail(), signInRequest.getPass_word()
                 )
         );
 
+        SecurityContextHolder.getContext().setAuthentication(authenticate);
+
         User user = userRepository
                 .findByEmail(signInRequest.getEmail())
-                .orElseThrow(()->new IllegalArgumentException("Invalid email or password!"));
+                .orElseThrow(() -> new IllegalArgumentException("Invalid email or password!"));
         String jwt = jwtUtil.generateToken(user);
-        String refreshToken = jwtUtil.generateRefreshToken(new HashMap<>(), user);
 
         JwtAuthenticationResponse jwtAuthenticationResponse = new JwtAuthenticationResponse();
         jwtAuthenticationResponse.setToken(jwt);
-        jwtAuthenticationResponse.setRefreshToken(refreshToken);
         return jwtAuthenticationResponse;
     }
 }
