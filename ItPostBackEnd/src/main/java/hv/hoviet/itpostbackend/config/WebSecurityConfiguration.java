@@ -92,15 +92,4 @@ public class WebSecurityConfiguration {
             throws Exception {
         return authenticationConfiguration.getAuthenticationManager();
     }
-
-    @Bean
-    public UserDetailsService userDetailsService() {
-        UserDetails user =
-                User.withDefaultPasswordEncoder()
-                        .username("user")
-                        .password("123")
-                        .roles("ROLE_USER")
-                        .build();
-        return new InMemoryUserDetailsManager(user);
-    }
 }
