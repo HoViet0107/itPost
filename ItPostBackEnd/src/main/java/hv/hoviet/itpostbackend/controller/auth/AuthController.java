@@ -26,6 +26,7 @@ public class AuthController {
             authenticationService.signUp(signUpRequest);
             return ResponseEntity.ok(Collections.singletonMap("message", "Đăng ký thành công!"));
         } catch (Exception ex) {
+            ex.printStackTrace();
             return ResponseEntity.ok(Collections.singletonMap("message", ex.getMessage()));
         }
     }
