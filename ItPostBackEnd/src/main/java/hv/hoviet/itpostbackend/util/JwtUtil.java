@@ -27,7 +27,9 @@ public class JwtUtil {
         return extractClaim(token, Claims::getSubject);
     }
 
+    // tạo token dự trên thông tin người dùng userDetails
     public String generateToken(UserDetails userDetails){
+        // tạo một Map để chứa thông tin người dùng
         Map<String, Object> claims = new HashMap<>();
         Collection<? extends GrantedAuthority> authorities = userDetails.getAuthorities();
         claims.put("authorities", authorities

@@ -1,8 +1,5 @@
 package hv.hoviet.itpostbackend.controller;
 
-import hv.hoviet.itpostbackend.model.Role;
-import hv.hoviet.itpostbackend.model.User;
-import hv.hoviet.itpostbackend.model.enums.EnumRole;
 import hv.hoviet.itpostbackend.util.AuthorityUtil;
 import hv.hoviet.itpostbackend.util.JwtUtil;
 import lombok.RequiredArgsConstructor;
@@ -12,7 +9,6 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.Collections;
-import java.util.List;
 import java.util.Set;
 
 @RestController

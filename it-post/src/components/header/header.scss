@@ -1,0 +1,25 @@
+.header-container {
+  display: flex;
+  align-items: center;
+  text-align: center;
+  box-shadow: 0px 1px 5px #888888;
+  position: sticky;
+  top: 0;
+  background-color: white;
+  padding: 0.5rem;
+  font-size: 1.2rem;
+  justify-content: space-evenly;
+}
+.logo {
+  font-size: 1.3rem;
+}
+
+.header-item {
+  display: flex;
+  align-items: center;
+  gap: 1.5rem;
+}
+
+.navigate {
+  text-decoration: none;
+}

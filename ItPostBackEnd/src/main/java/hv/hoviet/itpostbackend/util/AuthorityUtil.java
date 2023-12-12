@@ -15,21 +15,6 @@ import java.util.*;
 public class AuthorityUtil {
     @Value("${itPost.app.jwtSecret}")
     private String secretKey;
-    private final RoleRepository roleRepository;
-
-    public AuthorityUtil(RoleRepository roleRepository) {
-        this.roleRepository = roleRepository;
-    }
-
-    public String extractUsername(String token) {
-        // Giải mã token và trích xuất thông tin
-        Claims claims = Jwts.parser()
-                .setSigningKey(secretKey)
-                .parseClaimsJws(token)
-                .getBody();
-
-        return claims.getSubject(); // Trả về thông tin về người dùng từ token
-    }
 
     public Set extractRoles(String token) {
         Claims claims = Jwts.parser()
@@ -46,5 +31,4 @@ public class AuthorityUtil {
         }
         return roles;
     }
-
 }
