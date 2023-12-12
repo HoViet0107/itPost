@@ -1,3 +1,5 @@
+@use "src/globalStyle/global.scss";
+
 .login-container {
   margin-top: 1rem;
 }
@@ -15,21 +17,18 @@
 }
 .login-input {
   width: 100%;
-  box-sizing: border-box;
-  font-size: 1.2rem;
   padding: 10px;
-  border-radius: 5px;
   border: 2px solid rgb(110, 203, 203);
 }
 .sign-in-btn {
   width: 100%;
-  color: #2851a3;
+  color: global.$btnColor;
+  background-color: global.$btnBackGround;
   font-size: 1.1rem;
-  background-color: rgb(79, 230, 250);
   transition: all 0.2s linear;
   font-weight: bold;
   &:hover {
-    background-color: rgb(5, 204, 231);
+    background-color: global.$btnHover;
   }
 }
 
@@ -47,6 +46,8 @@
   font-size: 0.75rem;
   font-style: italic;
   cursor: pointer;
+  font-weight: bold;
   &:hover {
+    color: #2851a3;
   }
 }

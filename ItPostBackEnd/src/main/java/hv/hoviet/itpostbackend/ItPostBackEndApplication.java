@@ -11,6 +11,9 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
+import java.time.Instant;
+import java.time.LocalDateTime;
+import java.time.ZoneId;
 import java.util.HashSet;
 import java.util.Optional;
 import java.util.Set;
@@ -23,6 +26,7 @@ public class ItPostBackEndApplication implements CommandLineRunner {
     private RoleRepository roleRepository;
 
     public void run(String... args) throws Exception {
+
         Optional<Role> roleAdmin = roleRepository.findByRole_name(EnumRole.ROLE_ADMIN);
         if (!roleAdmin.isPresent()){
             Role role = new Role();
@@ -36,7 +40,7 @@ public class ItPostBackEndApplication implements CommandLineRunner {
             role.setRole_name(EnumRole.ROLE_USER);
             roleRepository.save(role);
         }
-
+        LocalDateTime currentTime = LocalDateTime.now();
         Optional<User> admin = userRepository.findByEmail("admin@hv.com");
         if(!admin.isPresent()){
             User user = new User();
@@ -47,9 +51,27 @@ public class ItPostBackEndApplication implements CommandLineRunner {
             user.setName("Ho Viet");
             user.setPhone("0987654321");
             user.setEmail("admin@hv.com");
+            user.setSubscribedOn(currentTime);
             user.setPass_word(new BCryptPasswordEncoder().encode("123"));
             userRepository.save(user);
             user.getRoles().add(adminRole);
+            userRepository.save(user);
+        }
+
+        Optional<User> optUser = userRepository.findByEmail("user@hv.com");
+        if(!optUser.isPresent()){
+            User user = new User();
+
+            Optional<Role> userRoleOptional = roleRepository.findByRole_name(EnumRole.ROLE_ADMIN);
+            Role userRole = userRoleOptional.orElseThrow(() -> new RuntimeException("Role not found"));
+
+            user.setName("Hồ Quốc Việt");
+            user.setPhone("0123456789");
+            user.setEmail("user@hv.com");
+            user.setSubscribedOn(currentTime);
+            user.setPass_word(new BCryptPasswordEncoder().encode("123"));
+            userRepository.save(user);
+            user.getRoles().add(userRole);
             userRepository.save(user);
         }
     }

@@ -3,8 +3,10 @@ package hv.hoviet.itpostbackend.service.impl;
 import hv.hoviet.itpostbackend.dto.JwtAuthenticationResponse;
 import hv.hoviet.itpostbackend.dto.SignInRequest;
 import hv.hoviet.itpostbackend.dto.SignUpRequest;
+import hv.hoviet.itpostbackend.model.Role;
 import hv.hoviet.itpostbackend.model.User;
 import hv.hoviet.itpostbackend.model.enums.EnumRole;
+import hv.hoviet.itpostbackend.respository.RoleRepository;
 import hv.hoviet.itpostbackend.respository.UserRepository;
 import hv.hoviet.itpostbackend.service.AuthenticationService;
 import hv.hoviet.itpostbackend.util.JwtUtil;
@@ -16,9 +18,6 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
-import java.util.HashMap;
-import java.util.HashSet;
-import java.util.Set;
 
 @Service
 @RequiredArgsConstructor
@@ -27,12 +26,12 @@ public class AuthenticationServiceImpl implements AuthenticationService {
     private final PasswordEncoder passwordEncoder;
     private final AuthenticationManager authenticationManager;
     private final JwtUtil jwtUtil;
+    private final RoleRepository roleRepository;
 
     @Override
     public User signUp(SignUpRequest signUpRequest) {
         User user = new User();
-        Set roles = new HashSet<>();
-        roles.add(EnumRole.ROLE_USER);
+        Role roles = roleRepository.findByRole_name(EnumRole.ROLE_USER).orElseThrow(() -> new RuntimeException("Role not found!"));
 
         user.setName(signUpRequest.getName());
         user.setNick_name(signUpRequest.getNick_name());
@@ -41,7 +40,9 @@ public class AuthenticationServiceImpl implements AuthenticationService {
         user.setPass_word(passwordEncoder.encode(signUpRequest.getPass_word()));
         user.setAvatar_link(signUpRequest.getAvatar_link());
         user.setBanner_link(signUpRequest.getBanner_link());
-        user.setRoles(roles);
+        user.setDob(signUpRequest.getDob());
+        user.setSubscribedOn(signUpRequest.getSubscribedOn());
+        user.getRoles().add(roles);
 
         return userRepository.save(user);
     }

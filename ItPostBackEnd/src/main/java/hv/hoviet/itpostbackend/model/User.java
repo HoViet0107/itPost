@@ -8,6 +8,9 @@ import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
 import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.*;
 import java.util.stream.Collectors;
 
@@ -26,9 +29,17 @@ public class User implements UserDetails {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
+    @NotBlank
+    @Column(columnDefinition = "NVARCHAR(50)")
     private String name;
 
     private String nick_name;
+
+    @NotNull
+    private LocalDate dob;
+
+    @Column(name = "subscribed_on")
+    private LocalDateTime subscribedOn;
 
     private String phone;
 
