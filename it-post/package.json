@@ -10,11 +10,13 @@
     "preview": "vite preview"
   },
   "dependencies": {
+    "http-proxy-middleware": "^2.0.6",
+    "jwt-decode": "^4.0.0",
     "localforage": "^1.10.0",
     "match-sorter": "^6.3.1",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
-    "react-router-dom": "^6.19.0",
+    "react-router-dom": "^6.20.1",
     "sass": "^1.69.5",
     "sort-by": "^1.2.0"
   },
