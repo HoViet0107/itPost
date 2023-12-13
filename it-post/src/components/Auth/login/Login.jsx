@@ -19,14 +19,15 @@ export default function Login() {
   const isTokenExp = () => {
     const decoded = jwtDecode(jwt);
     console.log(decoded);
-    //   /* lấy exp và so sánh với thời gian hiện tại*/
-    //   const exp = decoded.exp * 1000; // Chuyển đổi giây thành milisecond
-    //   const currentTIme = new Date().getTime();
-    //   return exp < currentTIme;
+    /* lấy exp và so sánh với thời gian hiện tại*/
+    const exp = decoded.exp * 1000; // Chuyển đổi giây thành milisecond
+    const currentTIme = new Date().getTime();
+    return exp < currentTIme;
   };
 
   useEffect(() => {
     if (isTokenExp) {
+      // navigate('/home')
       //   window.location.href = 'home'
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps

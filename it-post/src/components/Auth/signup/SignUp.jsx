@@ -1,8 +1,8 @@
 import { useEffect, useState } from "react";
 import "./style.scss";
 import { ToastContainer, toast } from "react-toastify";
-import { validateField } from "../../../customFunc/validate";
-import ajax from "../../../service/ajax";
+import { validateField } from "@/customFunc/validate";
+import ajax from "@/service/ajax";
 
 export function SignUp() {
   const [isVisible, setIsVisible] = useState({
