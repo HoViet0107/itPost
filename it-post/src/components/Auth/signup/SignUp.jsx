@@ -39,10 +39,16 @@ export function SignUp() {
   };
 
   const persist = () => {
-    ajax("auth/sign-up", null, "POST", user).then((message) => {
-      console.log(message);
-      toast.success(message.message);
-    });
+    ajax("auth/sign-up", null, "POST", user)
+      .then((message) => {
+        console.log(message);
+        toast.success(message.message);
+      })
+      .then(() => {
+        setTimeout(() => {
+          window.location.href = "/login";
+        }, 5000);
+      });
   };
   const sendSignUpRequest = () => {
     const validateName = validateField(user.name, "Họ tên");
