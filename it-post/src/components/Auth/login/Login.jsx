@@ -1,9 +1,9 @@
 import { useEffect, useState } from "react";
-import { useLocalStorage } from "../../../localStorage/UseLocalStorage.js";
-import ajax from "../../../service/ajax.js";
+import { useLocalStorage } from "@/localStorage/UseLocalStorage.js";
+import ajax from "@/service/ajax.js";
 import "./login.scss";
 import { jwtDecode } from "jwt-decode";
-import { validateField } from "../../../customFunc/validate.js";
+import { validateField } from "@/customFunc/validate.js";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { useNavigate } from "react-router-dom";

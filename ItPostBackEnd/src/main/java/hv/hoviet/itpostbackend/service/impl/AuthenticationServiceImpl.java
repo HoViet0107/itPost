@@ -18,6 +18,8 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDateTime;
+
 
 @Service
 @RequiredArgsConstructor
@@ -32,7 +34,7 @@ public class AuthenticationServiceImpl implements AuthenticationService {
     public User signUp(SignUpRequest signUpRequest) {
         User user = new User();
         Role roles = roleRepository.findByRole_name(EnumRole.ROLE_USER).orElseThrow(() -> new RuntimeException("Role not found!"));
-
+        LocalDateTime subScribedOn = LocalDateTime.now();
         user.setName(signUpRequest.getName());
         user.setNick_name(signUpRequest.getNick_name());
         user.setPhone(signUpRequest.getPhone());
@@ -41,7 +43,7 @@ public class AuthenticationServiceImpl implements AuthenticationService {
         user.setAvatar_link(signUpRequest.getAvatar_link());
         user.setBanner_link(signUpRequest.getBanner_link());
         user.setDob(signUpRequest.getDob());
-        user.setSubscribedOn(signUpRequest.getSubscribedOn());
+        user.setSubscribedOn(subScribedOn);
         user.getRoles().add(roles);
 
         return userRepository.save(user);

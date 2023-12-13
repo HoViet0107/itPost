@@ -1,5 +1,5 @@
 import { jwtDecode } from "jwt-decode";
-import { useLocalStorage } from "../../localStorage/UseLocalStorage";
+import { useLocalStorage } from "@/localStorage/UseLocalStorage";
 
 export default function HomePage() {
   const [jwt, setJwt] = useLocalStorage("", "jwt");

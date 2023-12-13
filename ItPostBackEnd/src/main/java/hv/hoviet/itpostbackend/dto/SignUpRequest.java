@@ -13,7 +13,6 @@ public class SignUpRequest {
     private String name;
     private String nick_name;
     private LocalDate dob;
-    private LocalDateTime subscribedOn;
     private String phone;
     private String email;
     private String pass_word;
