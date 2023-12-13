@@ -25,3 +25,5 @@ function App() {
 }
 
 export default App;
+
+/* đây là cách cấu hình đường dẫn mặc định: https://dev.to/richardbray/how-to-replace-webpack-babel-with-vite-on-a-legacy-react-typescript-project-3ofg */

@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import "./style.scss";
 import { ToastContainer, toast } from "react-toastify";
 import { validateField } from "@/customFunc/validate";
@@ -19,7 +19,6 @@ export function SignUp() {
     nick_name: "",
     phone: "",
     dob: null,
-    subscribedOn: null,
     email: "",
     pass_word: "",
     avatar_link: "",
@@ -40,14 +39,12 @@ export function SignUp() {
   };
 
   const persist = () => {
-    ajax("auth/sign-up", null, "POST", user).then((response) => {
-      toast.success(response);
+    ajax("auth/sign-up", null, "POST", user).then((message) => {
+      console.log(message);
+      toast.success(message.message);
     });
   };
-
   const sendSignUpRequest = () => {
-    console.log(user);
-    updateUser("subscribedOn", new Date());
     const validateName = validateField(user.name, "Họ tên");
     const validatePhone = validateField(user.phone, "Số điện thoại");
     const validateEmail = validateField(user.email, "Email");

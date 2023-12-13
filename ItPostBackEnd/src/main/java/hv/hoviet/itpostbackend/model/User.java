@@ -35,7 +35,7 @@ public class User implements UserDetails {
 
     private String nick_name;
 
-    @NotNull
+    @NotBlank
     private LocalDate dob;
 
     @Column(name = "subscribed_on")

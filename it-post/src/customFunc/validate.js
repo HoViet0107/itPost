@@ -31,9 +31,9 @@ export function validateField(value, fieldType) {
     }
   } else if (fieldType === "Mật khẩu") {
     // Kiểm tra định dạng mật khẩu
-    const passwordRegex = /^(?=.*[A-Z])(?=.*\d)[A-Za-z\d]{3,16}$/;
+    const passwordRegex = /^(?=.*\d)[A-Za-z\d]{3,16}$/;
     if (!passwordRegex.test(value)) {
-      return `${fieldType} không hợp lệ. Yêu cầu: ít nhất 1 ký tự viết hoa, 1 chữ số, từ 3 đến 16 ký tự.`;
+      return `${fieldType} không hợp lệ. Phải có ít nhất 1 ký tự , 1 chữ số, dài 3 đến 16 ký tự.`;
     }
   }
 
