@@ -31,7 +31,8 @@ public class WebSecurityConfiguration {
                         .requestMatchers(
                                 "/",
                                 "/home",
-                                "api/v1/**"
+                                "api/v1/**",
+                                "api/v1/posts"
                         ).permitAll()
                         .anyRequest().authenticated()
                 )

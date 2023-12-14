@@ -26,20 +26,21 @@ public class ItPostBackEndApplication implements CommandLineRunner {
     private RoleRepository roleRepository;
 
     public void run(String... args) throws Exception {
-
+        // add role to database
         Optional<Role> roleAdmin = roleRepository.findByRole_name(EnumRole.ROLE_ADMIN);
         if (!roleAdmin.isPresent()){
             Role role = new Role();
             role.setRole_name(EnumRole.ROLE_ADMIN);
             roleRepository.save(role);
         }
-
         Optional<Role> roleUser = roleRepository.findByRole_name(EnumRole.ROLE_USER);
         if (!roleUser.isPresent()){
             Role role = new Role();
             role.setRole_name(EnumRole.ROLE_USER);
             roleRepository.save(role);
         }
+
+        // add admin and user to database
         LocalDateTime currentTime = LocalDateTime.now();
         Optional<User> admin = userRepository.findByEmail("admin@hv.com");
         if(!admin.isPresent()){
@@ -74,6 +75,11 @@ public class ItPostBackEndApplication implements CommandLineRunner {
             user.getRoles().add(userRole);
             userRepository.save(user);
         }
+
+        // add post to database
+        // add comment to database
+        // add img to database
+        // add tag to database
     }
 
     public static void main(String[] args) {
