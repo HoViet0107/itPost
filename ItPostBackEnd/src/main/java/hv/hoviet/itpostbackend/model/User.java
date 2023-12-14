@@ -52,7 +52,6 @@ public class User implements UserDetails {
     private String avatar_link;
 
     private String banner_link;
-    @Column(columnDefinition = "NVARCHAR(50)")
 
 
     @ManyToMany(fetch = FetchType.LAZY)
@@ -62,6 +61,9 @@ public class User implements UserDetails {
     private Set<Role> roles = new HashSet<>();
     /* dùng để lưu các vai trò của người dùng
     HashSer<>() để xác định các vai trò chỉ lưu 1 lần*/
+
+    @OneToMany(mappedBy = "user",fetch = FetchType.LAZY)
+    private List<Post> posts = new ArrayList<>();
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {

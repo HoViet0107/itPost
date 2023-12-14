@@ -1,10 +1,23 @@
 import { Link } from "react-router-dom";
 import reactLogo from "@/assets/react.svg";
+import { useLocalStorage } from "@/localStorage/UseLocalStorage.js";
 import "./header.scss";
-import { useState } from "react";
+import { jwtDecode } from "jwt-decode";
 
 export default function Header() {
-  const [isLogin, setIsLogin] = useState(true);
+  const [jwt, setJwt] = useLocalStorage("", "jwt");
+
+  const isTokenExp = () => {
+    const decoded = jwtDecode(jwt);
+    /* lấy exp và so sánh với thời gian hiện tại*/
+    const exp = decoded.exp * 1000; // Chuyển đổi giây thành milisecond
+    const currentTIme = new Date().getTime();
+    if (exp < currentTIme) {
+      return true;
+    } else {
+      return false;
+    }
+  };
   return (
     <div className="header-container">
       <div className="header-item">
@@ -24,7 +37,7 @@ export default function Header() {
         </Link>
       </div>
       <div className="header-item ">
-        {isLogin ? (
+        {isTokenExp() === true ? (
           <Link className="navigate" to="/login">
             Login
           </Link>

@@ -22,13 +22,17 @@ export default function Login() {
     /* lấy exp và so sánh với thời gian hiện tại*/
     const exp = decoded.exp * 1000; // Chuyển đổi giây thành milisecond
     const currentTIme = new Date().getTime();
-    return exp < currentTIme;
+    if (exp < currentTIme) {
+      return true;
+    } else {
+      return false;
+    }
   };
 
   useEffect(() => {
-    if (isTokenExp) {
-      // navigate('/home')
-      //   window.location.href = 'home'
+    if (isTokenExp() === false) {
+      console.log(jwt);
+      window.location.href = "/home";
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [email, password, jwt]);
@@ -48,14 +52,17 @@ export default function Login() {
     };
     const eValidate = validateField(email, "email");
 
-    if (eValidate && password.length > 3) {
+    if (eValidate) {
       ajax("auth/sign-in", jwt, "POST", requestBody)
         .then((response) => {
           console.log(response);
           setJwt(response.token, "jwt");
+          toast.success("Đăng nhập thành công! Đang chuyển hướng.");
         })
         .then(() => {
-          // window.location.href = "home";
+          setTimeout(() => {
+            window.location.href = "/home";
+          }, 4000);
         })
         .catch((message) => {
           toast.error(message);
@@ -97,7 +104,7 @@ export default function Login() {
           Tạo tài khoản!
         </button>
       </div>
-      <ToastContainer autoClose={1500} />
+      <ToastContainer autoClose={2500} />
     </div>
   );
 }
