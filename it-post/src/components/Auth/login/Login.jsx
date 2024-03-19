@@ -17,12 +17,15 @@ export default function Login() {
   const navigate = useNavigate();
 
   const isTokenExp = () => {
-    const decoded = jwtDecode(jwt);
-    console.log(decoded);
-    /* lấy exp và so sánh với thời gian hiện tại*/
+    let decoded = "";
+    if (jwt !== "") {
+      decoded = jwtDecode(jwt);
+      console.log(decoded);
+    }
     const exp = decoded.exp * 1000; // Chuyển đổi giây thành milisecond
+    /* lấy exp và so sánh với thời gian hiện tại*/
     const currentTIme = new Date().getTime();
-    if (exp < currentTIme) {
+    if (exp < currentTIme || jwt === "") {
       return true;
     } else {
       return false;
@@ -53,6 +56,7 @@ export default function Login() {
     const eValidate = validateField(email, "email");
 
     if (eValidate) {
+      console.log(requestBody);
       ajax("auth/sign-in", jwt, "POST", requestBody)
         .then((response) => {
           console.log(response);

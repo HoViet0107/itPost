@@ -23,10 +23,15 @@ public class AuthController {
     public ResponseEntity<?> signUp(@RequestBody SignUpRequest signUpRequest) {
         // 7:26
         try {
-            authenticationService.signUp(signUpRequest);
-            return ResponseEntity.ok(Collections.singletonMap("message", "Đăng ký thành công!"));
+            try {
+                authenticationService.signUp(signUpRequest);
+                return ResponseEntity.ok(Collections.singletonMap("message", "Đăng ký thành công!"));
+            } catch (IllegalStateException illEx) {
+                System.out.println(illEx.getMessage());
+                return ResponseEntity.ok(Collections.singletonMap("message", illEx.getMessage()));
+            }
         } catch (Exception ex) {
-            ex.printStackTrace();
+            System.out.println(ex.getMessage());
             return ResponseEntity.ok(Collections.singletonMap("message", ex.getMessage()));
         }
     }
@@ -36,13 +41,13 @@ public class AuthController {
         try {
             System.out.println(signInRequest);
             if (!signInRequest.getEmail().equals(null) &&
-                    !signInRequest.getPass_word().equals(null))
-            {
+                    !signInRequest.getPass_word().equals(null)) {
                 return new ResponseEntity<>(authenticationService.signIn(signInRequest), HttpStatus.OK);
             } else {
                 return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
             }
         } catch (Exception ex) {
+            System.out.println(ex.getMessage());
             return ResponseEntity.ok(Collections.singletonMap("message", ex.getMessage()));
         }
     }

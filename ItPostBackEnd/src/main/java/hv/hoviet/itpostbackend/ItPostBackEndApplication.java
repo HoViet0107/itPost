@@ -50,6 +50,14 @@ public class ItPostBackEndApplication implements CommandLineRunner {
         if (!isAdminExists.isPresent()) {
             Optional<Role> adminRoleOptional = roleRepository.findByRole_name(EnumRole.ROLE_ADMIN);
             Role adminRole = adminRoleOptional.orElseThrow(() -> new RuntimeException("Role not found"));
+            adminRoleOptional=null;
+
+            Img ava1 = new Img();
+            ava1.setImg_link("Ava https://sm.ign.com/t/ign_nordic/cover/a/avatar-gen/avatar-generations_prsz.300.jpg");
+            ava1.setUser(admin);
+            Img ava2 = new Img();
+            ava2.setImg_link("Banner https://sm.ign.com/t/ign_nordic/cover/a/avatar-gen/avatar-generations_prsz.300.jpg");
+            ava2.setUser(admin);
 
             admin.setName("Ho Viet");
             admin.setPhone("0987654321");
@@ -59,6 +67,8 @@ public class ItPostBackEndApplication implements CommandLineRunner {
             userRepository.save(admin);
             admin.getRoles().add(adminRole);
             userRepository.save(admin);
+            imgRepository.save(ava1);
+            imgRepository.save(ava2);
         }
 
         Optional<User> optUser = userRepository.findByEmail("user@hv.com");
@@ -66,6 +76,14 @@ public class ItPostBackEndApplication implements CommandLineRunner {
         if (!optUser.isPresent()) {
             Optional<Role> userRoleOptional = roleRepository.findByRole_name(EnumRole.ROLE_ADMIN);
             Role userRole = userRoleOptional.orElseThrow(() -> new RuntimeException("Role not found"));
+            userRoleOptional=null;
+
+            Img ava1 = new Img();
+            ava1.setImg_link("Ava https://cdn2.cellphones.com.vn/1200x400/https://cdn.sforum.vn/sforum/wp-content/uploads/2023/11/avatar-vo-tri-thumbnail.jpg");
+            Img ava2 = new Img();
+            ava2.setImg_link("Banner https://cdn2.cellphones.com.vn/1200x400/https://cdn.sforum.vn/sforum/wp-content/uploads/2023/11/avatar-vo-tri-thumbnail.jpg");
+            ava1.setUser(user);
+            ava2.setUser(user);
 
             user.setName("Hồ Quốc Việt");
             user.setPhone("0123456789");
@@ -75,6 +93,8 @@ public class ItPostBackEndApplication implements CommandLineRunner {
             userRepository.save(user);
             user.getRoles().add(userRole);
             userRepository.save(user);
+            imgRepository.save(ava1);
+            imgRepository.save(ava2);
         }
         /* ***************************************************************************************** */
         // add tag to database
@@ -93,7 +113,7 @@ public class ItPostBackEndApplication implements CommandLineRunner {
         post1.setContent("Java is an object-oriented programming language. React is a JavaScript library for building user interfaces.");
         post1.setPostedOn(LocalDateTime.now());
         post1.setNumsOfLike("0");
-        post1.setNumsOfComment("1");
+        post1.setNumsOfComment("3");
         post1.setNumsOfDislike("0");
         post1.setNumsOfShare("0");
         post1.getTags().add(tagRepository.findByTagName("Java"));

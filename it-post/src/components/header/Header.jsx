@@ -8,11 +8,14 @@ export default function Header() {
   const [jwt, setJwt] = useLocalStorage("", "jwt");
 
   const isTokenExp = () => {
-    const decoded = jwtDecode(jwt);
+    let decoded = "";
+    if (jwt !== "") {
+      decoded = jwtDecode(jwt);
+    }
     /* lấy exp và so sánh với thời gian hiện tại*/
     const exp = decoded.exp * 1000; // Chuyển đổi giây thành milisecond
     const currentTIme = new Date().getTime();
-    if (exp < currentTIme) {
+    if (exp < currentTIme || jwt === "") {
       return true;
     } else {
       return false;

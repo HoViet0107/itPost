@@ -24,6 +24,7 @@ export function SignUp() {
     avatar_link: "",
     banner_link: "",
   });
+
   const [confirmPw, setConfirmPw] = useState("");
 
   const updateUser = (props, value) => {
