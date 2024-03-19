@@ -49,9 +49,8 @@ public class User implements UserDetails {
     @JsonIgnore
     private String pass_word;
 
-    private String avatar_link;
-
-    private String banner_link;
+    @OneToMany(mappedBy = "user",fetch = FetchType.LAZY)
+    private List<Img> avaIimgs = new ArrayList<>();
 
 
     @ManyToMany(fetch = FetchType.LAZY)
@@ -62,9 +61,11 @@ public class User implements UserDetails {
     /* dùng để lưu các vai trò của người dùng
     HashSer<>() để xác định các vai trò chỉ lưu 1 lần*/
 
+    @JsonIgnore
     @OneToMany(mappedBy = "user",fetch = FetchType.LAZY)
     private List<Post> posts = new ArrayList<>();
 
+    @JsonIgnore
     @OneToMany(mappedBy = "user",fetch = FetchType.LAZY)
     private List<Comment> comments = new ArrayList<>();
 

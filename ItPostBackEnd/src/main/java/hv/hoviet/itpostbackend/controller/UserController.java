@@ -1,5 +1,6 @@
 package hv.hoviet.itpostbackend.controller;
 
+import hv.hoviet.itpostbackend.dto.SignUpRequest;
 import hv.hoviet.itpostbackend.util.AuthorityUtil;
 import hv.hoviet.itpostbackend.util.JwtUtil;
 import lombok.RequiredArgsConstructor;
@@ -23,20 +24,5 @@ public class UserController {
     @Autowired
     private AuthorityUtil authorityUtil;
 
-    @GetMapping("")
-    public ResponseEntity<?> getUsers(@RequestHeader("Authorization") String token) {
-        try {
-            String extractedToken = token.substring(7);
-            Set userRoles = authorityUtil.extractRoles(extractedToken);
 
-            if (userRoles.contains("ROLE_ADMIN")) {
-                return ResponseEntity.ok(Collections.singletonMap("message", "Hi admin!"));
-            } else {
-                return ResponseEntity.ok(Collections.singletonMap("message", "Hi user!"));
-            }
-        } catch (Exception ex) {
-            ex.printStackTrace();
-            return new ResponseEntity<>("An error occurred: " + ex.getMessage(), HttpStatus.INTERNAL_SERVER_ERROR);
-        }
-    }
 }

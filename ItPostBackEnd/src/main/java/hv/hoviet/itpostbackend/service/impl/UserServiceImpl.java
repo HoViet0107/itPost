@@ -1,6 +1,6 @@
 package hv.hoviet.itpostbackend.service.impl;
 
-import hv.hoviet.itpostbackend.dto.JwtAuthenticationResponse;
+import hv.hoviet.itpostbackend.model.User;
 import hv.hoviet.itpostbackend.respository.UserRepository;
 import hv.hoviet.itpostbackend.service.UserService;
 import lombok.RequiredArgsConstructor;
@@ -24,4 +24,5 @@ public class UserServiceImpl implements UserService {
             }
         };
     }
+
 }

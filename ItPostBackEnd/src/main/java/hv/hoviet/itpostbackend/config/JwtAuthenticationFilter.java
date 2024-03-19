@@ -32,18 +32,28 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
         final String jwt;
         final String userEmail;
 
+        // lấy đường dẫn url của request
+        String requestUrl = request.getRequestURI();
+
+        // kiểm tra nếu request có đường dẫn /api/v1/posts th bỏ qua không xác nhận token
+        if ("/api/v1/posts".equals(requestUrl)) {
+            // bỏ qua bước xác minh với url đó
+            filterChain.doFilter(request, response);
+            return;
+        }
+
         // check token
-        if(StringUtils.isEmpty(authHeader) || !org.apache.commons.lang3.StringUtils.startsWith(authHeader,"Bearer ")){
-            filterChain.doFilter(request,response);
+        if (StringUtils.isEmpty(authHeader) || !org.apache.commons.lang3.StringUtils.startsWith(authHeader, "Bearer ")) {
+            filterChain.doFilter(request, response);
             return;
         }
 
         jwt = authHeader.substring(7);
         userEmail = jwtUtil.extractUsername(jwt);
 
-        if(StringUtils.isNotEmpty(userEmail) && SecurityContextHolder.getContext().getAuthentication() == null){
+        if (StringUtils.isNotEmpty(userEmail) && SecurityContextHolder.getContext().getAuthentication() == null) {
             UserDetails userDetails = userService.userDetailsService().loadUserByUsername(userEmail);
-            if(jwtUtil.isTokenValid(jwt,userDetails)){
+            if (jwtUtil.isTokenValid(jwt, userDetails)) {
                 SecurityContext securityContext = SecurityContextHolder.createEmptyContext();
                 UsernamePasswordAuthenticationToken token = new UsernamePasswordAuthenticationToken(
                         userDetails, null, userDetails.getAuthorities());
@@ -54,6 +64,7 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
                 SecurityContextHolder.setContext(securityContext);
             }
         }
-        filterChain.doFilter(request,response);
+
+        filterChain.doFilter(request, response);
     }
 }
