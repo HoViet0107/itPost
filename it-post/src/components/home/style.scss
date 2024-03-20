@@ -1,0 +1,40 @@
+.home-container .post-wrapper {
+  border-radius: 5px;
+  border: 1px solid rgb(151, 188, 191);
+  margin: 1rem auto;
+  max-width: 500px;
+  padding: 1rem;
+}
+
+// user info
+.post-wrapper .user-info {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+.post-wrapper .user-avatar {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+}
+
+// post hash tags
+.post-wrapper .post-tags {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  cursor: pointer;
+}
+.post-wrapper .post-tag {
+  padding: 0.5px 10px;
+  border-radius: 5px;
+  color: white;
+  font-weight: bold;
+  font-style: italic;
+  font-size: 0.75rem;
+  background-color: rgb(24, 202, 99);
+  transition: all 0.2s linear;
+  &:hover {
+    background-color: rgb(9, 175, 78);
+  }
+}

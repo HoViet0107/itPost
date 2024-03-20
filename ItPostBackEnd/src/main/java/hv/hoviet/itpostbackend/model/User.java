@@ -36,13 +36,17 @@ public class User implements UserDetails {
     private String nick_name;
 
     @NotBlank
+    @JsonIgnore
     private LocalDate dob;
 
+    @JsonIgnore
     @Column(name = "subscribed_on")
     private LocalDateTime subscribedOn;
 
+    @JsonIgnore
     private String phone;
 
+    @JsonIgnore
     @NotBlank
     private String email;
 
@@ -50,9 +54,9 @@ public class User implements UserDetails {
     private String pass_word;
 
     @OneToMany(mappedBy = "user",fetch = FetchType.LAZY)
-    private List<Img> avaIimgs = new ArrayList<>();
+    private List<Img> ava_imgs = new ArrayList<>();
 
-
+    @JsonIgnore
     @ManyToMany(fetch = FetchType.LAZY)
     @JoinTable(name = "user_roles",
             joinColumns = @JoinColumn(name = "user_id"),
@@ -70,6 +74,7 @@ public class User implements UserDetails {
     private List<Comment> comments = new ArrayList<>();
 
     @Override
+    @JsonIgnore
     public Collection<? extends GrantedAuthority> getAuthorities() {
         List<GrantedAuthority> authorities =
                 roles.stream()
@@ -81,30 +86,36 @@ public class User implements UserDetails {
     }
 
     @Override
+    @JsonIgnore
     public String getPassword() {
         return pass_word;
     }
 
+    @JsonIgnore
     @Override
     public String getUsername() {
         return email;
     }
 
+    @JsonIgnore
     @Override
     public boolean isAccountNonExpired() {
         return true;
     }
 
+    @JsonIgnore
     @Override
     public boolean isAccountNonLocked() {
         return true;
     }
 
+    @JsonIgnore
     @Override
     public boolean isCredentialsNonExpired() {
         return true;
     }
 
+    @JsonIgnore
     @Override
     public boolean isEnabled() {
         return true;

@@ -50,10 +50,10 @@ public class ItPostBackEndApplication implements CommandLineRunner {
         if (!isAdminExists.isPresent()) {
             Optional<Role> adminRoleOptional = roleRepository.findByRole_name(EnumRole.ROLE_ADMIN);
             Role adminRole = adminRoleOptional.orElseThrow(() -> new RuntimeException("Role not found"));
-            adminRoleOptional=null;
+            adminRoleOptional= Optional.empty();
 
             Img ava1 = new Img();
-            ava1.setImg_link("Ava https://sm.ign.com/t/ign_nordic/cover/a/avatar-gen/avatar-generations_prsz.300.jpg");
+            ava1.setImg_link("Ava https://a.deviantart.net/avatars-big/c/a/cathrynedelamort.jpg?4");
             ava1.setUser(admin);
             Img ava2 = new Img();
             ava2.setImg_link("Banner https://sm.ign.com/t/ign_nordic/cover/a/avatar-gen/avatar-generations_prsz.300.jpg");
@@ -76,7 +76,7 @@ public class ItPostBackEndApplication implements CommandLineRunner {
         if (!optUser.isPresent()) {
             Optional<Role> userRoleOptional = roleRepository.findByRole_name(EnumRole.ROLE_ADMIN);
             Role userRole = userRoleOptional.orElseThrow(() -> new RuntimeException("Role not found"));
-            userRoleOptional=null;
+            userRoleOptional= Optional.empty();
 
             Img ava1 = new Img();
             ava1.setImg_link("Ava https://cdn2.cellphones.com.vn/1200x400/https://cdn.sforum.vn/sforum/wp-content/uploads/2023/11/avatar-vo-tri-thumbnail.jpg");
@@ -113,13 +113,32 @@ public class ItPostBackEndApplication implements CommandLineRunner {
         post1.setContent("Java is an object-oriented programming language. React is a JavaScript library for building user interfaces.");
         post1.setPostedOn(LocalDateTime.now());
         post1.setNumsOfLike("0");
-        post1.setNumsOfComment("3");
         post1.setNumsOfDislike("0");
         post1.setNumsOfShare("0");
+        post1.setNumsOfComment("3");
         post1.getTags().add(tagRepository.findByTagName("Java"));
         post1.getTags().add(tagRepository.findByTagName("React"));
         post1.setUser(admin);
         postRepository.save(post1);
+
+        // add post 2 to database
+        Post post2 = new Post();
+        post2.setContent("Sql server is an object-oriented programming language. Sql server is a JavaScript library for building user interfaces.");
+        post2.setNumsOfComment("1");
+        post2 = addPostToDb(post2,user,"Sql server");
+
+        // add post 3-10 to database
+        Post duplicatePost = new Post();
+        duplicatePost.setContent("Sql server is an object-oriented programming language. Sql server is a JavaScript library for building user interfaces.");
+        duplicatePost.setNumsOfComment("0");
+        addPostToDb(duplicatePost, user, "Sql server");
+        addPostToDb(duplicatePost, user, "Sql server");
+        addPostToDb(duplicatePost, user, "Sql server");
+        addPostToDb(duplicatePost, user, "Sql server");
+        addPostToDb(duplicatePost, user, "Sql server");
+        addPostToDb(duplicatePost, user, "Sql server");
+        addPostToDb(duplicatePost, user, "Sql server");
+        addPostToDb(duplicatePost, user, "Sql server");
 
         // add img of post 1 to database
         Img img1 = new Img();
@@ -132,18 +151,6 @@ public class ItPostBackEndApplication implements CommandLineRunner {
         img3.setImg_link("https://www.google.com.vn/images/branding/googlelogo/2x/googlelogo_color_272x92dp.png");
         img3.setPost(post1);
         imgRepository.save(img3);
-
-        // add post 2 to database
-        Post post2 = new Post();
-        post2.setContent("Sql server is an object-oriented programming language. Sql server is a JavaScript library for building user interfaces.");
-        post2.setPostedOn(LocalDateTime.now());
-        post2.setNumsOfLike("0");
-        post2.setNumsOfComment("0");
-        post2.setNumsOfDislike("0");
-        post2.setNumsOfShare("0");
-        post2.getTags().add(tagRepository.findByTagName("Sql server"));
-        post2.setUser(user);
-        postRepository.save(post2);
 
         // add img of post 1 to database
         Img img2 = new Img();
@@ -199,6 +206,19 @@ public class ItPostBackEndApplication implements CommandLineRunner {
 
     }
 
+    public Post addPostToDb(Post oriPost, User user, String tagName){
+        Post post = new Post();
+        post.setContent(oriPost.getContent());
+        post.setPostedOn(LocalDateTime.now());
+        post.setNumsOfLike("0");
+        post.setNumsOfComment(oriPost.getNumsOfComment());
+        post.setNumsOfDislike("0");
+        post.setNumsOfShare("0");
+        post.getTags().add(tagRepository.findByTagName(tagName));
+        post.setUser(user);
+        postRepository.save(post);
+        return post;
+    }
     public static void main(String[] args) {
         SpringApplication.run(ItPostBackEndApplication.class, args);
     }
