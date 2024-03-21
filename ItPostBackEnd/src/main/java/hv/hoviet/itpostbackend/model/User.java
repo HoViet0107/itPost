@@ -25,6 +25,7 @@ import java.util.stream.Collectors;
                 @UniqueConstraint(columnNames = "email")
         })
 public class User implements UserDetails {
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
@@ -53,7 +54,7 @@ public class User implements UserDetails {
     @JsonIgnore
     private String pass_word;
 
-    @OneToMany(mappedBy = "user",fetch = FetchType.LAZY)
+    @OneToMany(mappedBy = "user", fetch = FetchType.LAZY)
     private List<Img> ava_imgs = new ArrayList<>();
 
     @JsonIgnore
@@ -66,11 +67,11 @@ public class User implements UserDetails {
     HashSer<>() để xác định các vai trò chỉ lưu 1 lần*/
 
     @JsonIgnore
-    @OneToMany(mappedBy = "user",fetch = FetchType.LAZY)
+    @OneToMany(mappedBy = "user", fetch = FetchType.LAZY)
     private List<Post> posts = new ArrayList<>();
 
     @JsonIgnore
-    @OneToMany(mappedBy = "user",fetch = FetchType.LAZY)
+    @OneToMany(mappedBy = "user", fetch = FetchType.LAZY)
     private List<Comment> comments = new ArrayList<>();
 
     @Override

@@ -39,3 +39,34 @@ export function validateField(value, fieldType) {
 
   return true;
 }
+
+// export time like facebook
+export function formatTime(postedOn) {
+  const currentTime = new Date();
+  const postTime = new Date(postedOn);
+  const timeDifference = Math.floor((currentTime - postTime) / 1000);
+
+  // Chuyển thời gian thành giây, phút, giờ, hoặc ngày
+  if (timeDifference < 60) {
+    return timeDifference + " giây trước";
+  } else if (timeDifference < 3600) {
+    return Math.floor(timeDifference / 60) + " phút trước";
+  } else if (timeDifference < 86400) {
+    return Math.floor(timeDifference / 3600) + " giờ trước";
+  } else {
+    return Math.floor(timeDifference / 86400) + " ngày trước";
+  }
+}
+
+// chuyển đổi thời gian sang ngày tháng
+export function formatDateTime(timestamp) {
+  const dateObject = new Date(timestamp);
+
+  // Lấy thời gian
+  const time = dateObject.toLocaleTimeString(); // ví dụ: 14:36:27 PM
+
+  // Lấy ngày tháng
+  const options = { year: "numeric", month: "long", day: "numeric" };
+  const dateTime = dateObject.toLocaleDateString(undefined, options); // ví dụ: March 21, 2024
+  return `${dateTime} at ${time}`;
+}

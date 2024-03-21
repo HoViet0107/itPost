@@ -2,11 +2,12 @@
   border-radius: 5px;
   border: 1px solid rgb(151, 188, 191);
   margin: 1rem auto;
-  max-width: 500px;
+  width: 500px;
   padding: 1rem;
+  overflow-x: hidden;
 }
 
-// user info
+// -- user info
 .post-wrapper .user-info {
   display: flex;
   align-items: center;
@@ -18,12 +19,14 @@
   border-radius: 50%;
 }
 
-// post hash tags
+// -- post hash tags
 .post-wrapper .post-tags {
   display: flex;
   align-items: center;
   gap: 10px;
   cursor: pointer;
+  margin-top: 10px;
+  margin-bottom: 5px;
 }
 .post-wrapper .post-tag {
   padding: 0.5px 10px;
@@ -37,4 +40,90 @@
   &:hover {
     background-color: rgb(9, 175, 78);
   }
+}
+
+// -- post content
+.post-wrapper .post-content .show-more-content {
+  cursor: pointer;
+  color: #4c4e4c;
+  font-size: 0.8rem;
+  &:hover {
+    text-decoration: underline;
+  }
+}
+
+// post images
+.post-img-wrapper {
+  max-height: 100px;
+  overflow: hidden;
+  margin-top: 5px;
+  margin-bottom: 5px;
+  position: relative;
+  border-radius: 5px;
+}
+.post-img-wrapper .post-img {
+  object-fit: cover;
+  transition: transform 0.3s ease;
+}
+.overlay {
+  position: absolute;
+  cursor: pointer;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(173, 169, 169, 0.5); /* Màu nền với độ mờ */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  opacity: 0; /* Ban đầu ẩn */
+  transition: opacity 0.3s ease; /* Hiệu ứng chuyển động khi hover */
+}
+
+.overlay p {
+  color: #333;
+  font-size: 18px;
+  font-weight: bold;
+}
+
+.post-img-wrapper:hover .overlay {
+  opacity: 1; /* Hiển thị overlay khi hover */
+}
+
+// -- post time
+.post-wrapper .post-time {
+  font-size: 0.75rem;
+  margin-bottom: 10px;
+  color: rgb(151, 188, 191);
+  cursor: pointer;
+  width: fit-content;
+  position: relative;
+}
+.post-wrapper .post-time:hover::after {
+  transition: all 0.3s linear;
+  content: attr(
+    time-title
+  ); /* Sử dụng thuộc tính time-title của phần tử làm nội dung của pseudo-element */
+  background-color: #404240;
+  color: #fff;
+  padding: 1px 5px 2px 5px;
+  opacity: 0.75;
+  border-radius: 5px;
+}
+
+// -- post emoji
+.post-wrapper .post-emoji {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  justify-content: space-between;
+}
+.post-wrapper .post-emoji-item {
+  display: flex;
+  align-items: center;
+  gap: 3px;
+  cursor: pointer;
+}
+.post-emoji-item {
+  font-weight: 300;
 }

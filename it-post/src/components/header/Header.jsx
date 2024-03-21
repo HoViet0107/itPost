@@ -5,6 +5,7 @@ import "./header.scss";
 import { jwtDecode } from "jwt-decode";
 
 export default function Header() {
+  // eslint-disable-next-line no-unused-vars
   const [jwt, setJwt] = useLocalStorage("", "jwt");
 
   const isTokenExp = () => {

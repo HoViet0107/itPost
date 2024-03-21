@@ -35,6 +35,7 @@ public class Img {
     @JsonIgnore
     private Comment comment;
 
+    @Column(columnDefinition = "varchar(max)")
     private String img_link;
     /*
        định dạng avatar: Avatar <link>
